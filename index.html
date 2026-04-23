@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Менің Ғарышкерім</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #050505 url('https://postimg.cc'); /* Жұлдызды аспан */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        .astronaut {
+            width: 200px; /* Ғарышкердің өлшемі */
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        h1 {
+            position: absolute;
+            top: 20px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Ғарыш әлемі</h1>
+
+    <!-- Дайын ғарышкер суреті (сілтеме арқылы) -->
+    <img src="https://postimg.cc" alt="Astronaut" class="astronaut">
+
+</body>
+</html>
