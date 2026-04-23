@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <title>3D Тест</title>
+    <!-- 3D модельді көрсететін бағдарлама -->
+    <script type="module" src="https://googleapis.com"></script>
+    <style>
+        body, html {
+            margin: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #eeeeee;
+        }
+        model-viewer {
+            width: 100%;
+            height: 80vh;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ғарышкердің дайын моделі -->
+    <model-viewer 
+        src="https://modelviewer.dev" 
+        camera-controls 
+        auto-rotate 
+        shadow-intensity="1" 
+        ar>
+    </model-viewer>
+
+</body>
+</html>
