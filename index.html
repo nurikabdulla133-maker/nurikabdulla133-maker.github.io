@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Blender Model on Web</title>
+    <style>
+        body { margin: 0; background: radial-gradient(#333, #000); overflow: hidden; }
+        canvas { display: block; }
+        .info { position: absolute; top: 10px; left: 10px; color: white; font-family: sans-serif; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <div class="info">3D Модель: Тышқанмен айналдырыңыз</div>
+
+    <!-- Three.js жүктеу -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com",
+                "three/addons/": "https://unpkg.com"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // 1. Сахна мен Камера
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0, 3);
+
+        // 2. Рендерер
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
+
+        // 3. Жарық (Модель көрінуі үшін маңызды)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+        scene.add(ambientLight);
+
+        const topLight = new THREE.DirectionalLight(0xffffff, 2);
+        topLight.position.set(5, 5, 5);
+        scene.add(topLight);
+
+        // 4. Басқару (OrbitControls)
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+
+        // 5. ДАЙЫН МОДЕЛЬДІ ЖҮКТЕУ (Blender Suzanne)
+        const loader = new GLTFLoader();
+        // Мынау — GitHub-тағы дайын .gltf модельге сілтеме
+        const modelUrl = 'https://githubusercontent.com';
+
+        loader.load(modelUrl, (gltf) => {
+            const model = gltf.scene;
+            scene.add(model);
+            console.log("Модель жүктелді!");
+        }, 
+        (xhr) => { console.log((xhr.loaded / xhr.total * 100) + '% жүктелді'); },
+        (error) => { console.error('Қате:', error); });
+
+        // 6. Анимация
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Терезе өлшемі өзгергенде түзету
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
